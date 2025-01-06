@@ -51,6 +51,12 @@
         button:hover {
             background-color: #0056b3;
         }
+        #chat-id {
+            margin-top: 20px;
+            color: green;
+            font-size: 18px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -58,29 +64,9 @@
         <h1>Tic Tac Toe</h1>
         <div class="board"></div>
         <h2 id="status"></h2>
+        <h3 id="chat-id"></h3>
         <button id="restart">Restart Game</button>
     </div>
-    <script>
-        // Telegram Web App
-        const tg = window.Telegram.WebApp;
-
-        // Настройка Web App интерфейса
-        tg.ready();
-        tg.expand(); // Расширяет Web App на весь экран
-
-        // Добавляем основную кнопку
-        tg.MainButton.text = "Start Game";
-        tg.MainButton.show();
-
-        // Обработка нажатия кнопки
-        tg.MainButton.onClick(() => {
-            alert('Game Started!');
-        });
-
-        // Логируем данные пользователя
-        console.log(`User ID: ${tg.initDataUnsafe.user.id}`);
-        console.log(`User Name: ${tg.initDataUnsafe.user.first_name}`);
-    </script>
     <script src="script.js"></script>
 </body>
 </html>

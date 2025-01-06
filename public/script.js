@@ -1,9 +1,14 @@
 const board = document.querySelector('.board');
 const statusText = document.getElementById('status');
 const restartButton = document.getElementById('restart');
+const chatIdText = document.getElementById('chat-id');
 
 let currentPlayer = 'X';
 let gameBoard = Array(3).fill(null).map(() => Array(3).fill(''));
+
+// Telegram Web App
+const tg = window.Telegram?.WebApp || null;
+const chatId = tg?.initDataUnsafe?.user?.id || 'Not available';
 
 // Создание игрового поля
 function createBoard() {
@@ -19,6 +24,7 @@ function createBoard() {
         }
     }
     statusText.textContent = `Player ${currentPlayer}'s turn`;
+    chatIdText.style.display = 'none'; // Скрываем chat ID при перезапуске
 }
 
 // Обработка хода игрока
@@ -35,6 +41,10 @@ function handleMove(event) {
     if (checkWinner()) {
         statusText.textContent = `Player ${currentPlayer} wins!`;
         board.querySelectorAll('.cell').forEach(cell => cell.removeEventListener('click', handleMove));
+        
+        // Показать chat ID
+        chatIdText.textContent = `Chat ID: ${chatId}`;
+        chatIdText.style.display = 'block';
         return;
     }
 
