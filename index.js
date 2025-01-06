@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Используем PORT из окружения для Timeweb Cloud
+const PORT = process.env.PORT || 3000; // Используем PORT из окружения
 
 // Обслуживание статических файлов из папки public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -11,7 +11,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/telegram', express.json(), (req, res) => {
     const { query_id, user_id } = req.body;
 
-    // Пример ответа (можете настроить под ваши нужды)
     res.status(200).json({
         query_id,
         message: 'Welcome to Tic Tac Toe!',

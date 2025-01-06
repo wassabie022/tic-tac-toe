@@ -12,19 +12,19 @@ const chatId = tg?.initDataUnsafe?.user?.id || 'Not available';
 
 // Создание игрового поля
 function createBoard() {
-    board.innerHTML = '';
+    board.innerHTML = ''; // Очищаем игровое поле
     for (let row = 0; row < 3; row++) {
         for (let col = 0; col < 3; col++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
             cell.dataset.row = row;
             cell.dataset.col = col;
-            cell.addEventListener('click', handleMove);
-            board.appendChild(cell);
+            cell.addEventListener('click', handleMove); // Добавляем обработчик клика
+            board.appendChild(cell); // Добавляем ячейку на игровое поле
         }
     }
-    statusText.textContent = `Player ${currentPlayer}'s turn`;
-    chatIdText.style.display = 'none'; // Скрываем chat ID при перезапуске
+    statusText.textContent = `Player ${currentPlayer}'s turn`; // Устанавливаем статус
+    chatIdText.style.display = 'none'; // Скрываем Chat ID при перезапуске
 }
 
 // Обработка хода игрока
@@ -32,29 +32,27 @@ function handleMove(event) {
     const row = event.target.dataset.row;
     const col = event.target.dataset.col;
 
-    if (gameBoard[row][col] !== '') return;
+    if (gameBoard[row][col] !== '') return; // Проверяем, занята ли ячейка
 
-    gameBoard[row][col] = currentPlayer;
-    event.target.textContent = currentPlayer;
+    gameBoard[row][col] = currentPlayer; // Записываем ход в массив
+    event.target.textContent = currentPlayer; // Отображаем ход на поле
     event.target.classList.add('taken');
 
     if (checkWinner()) {
-        statusText.textContent = `Player ${currentPlayer} wins!`;
+        statusText.textContent = `Player ${currentPlayer} wins!`; // Объявляем победителя
         board.querySelectorAll('.cell').forEach(cell => cell.removeEventListener('click', handleMove));
-        
-        // Показать chat ID
-        chatIdText.textContent = `Chat ID: ${chatId}`;
+        chatIdText.textContent = `Chat ID: ${chatId}`; // Отображаем Chat ID
         chatIdText.style.display = 'block';
         return;
     }
 
     if (isDraw()) {
-        statusText.textContent = `It's a draw!`;
+        statusText.textContent = `It's a draw!`; // Объявляем ничью
         return;
     }
 
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    statusText.textContent = `Player ${currentPlayer}'s turn`;
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Смена игрока
+    statusText.textContent = `Player ${currentPlayer}'s turn`; // Обновляем статус
 }
 
 // Проверка победителя
@@ -71,16 +69,16 @@ function checkWinner() {
 
 // Проверка на ничью
 function isDraw() {
-    return gameBoard.flat().every(cell => cell !== '');
+    return gameBoard.flat().every(cell => cell !== ''); // Проверяем, заполнены ли все ячейки
 }
 
 // Перезапуск игры
 function restartGame() {
-    gameBoard = Array(3).fill(null).map(() => Array(3).fill(''));
-    currentPlayer = 'X';
-    createBoard();
+    gameBoard = Array(3).fill(null).map(() => Array(3).fill('')); // Сбрасываем игровое поле
+    currentPlayer = 'X'; // Сбрасываем текущего игрока
+    createBoard(); // Перерисовываем поле
 }
 
-// Инициализация
+// Инициализация игры
 restartButton.addEventListener('click', restartGame);
 createBoard();
