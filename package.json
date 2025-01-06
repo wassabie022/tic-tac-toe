@@ -1,0 +1,14 @@
+{
+  "name": "tic_tac_toe",
+  "version": "1.0.0",
+  "description": "A simple Tic Tac Toe game",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
