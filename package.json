@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "echo 'No build step necessary'"
+    "build": "mkdir -p build && cp -r public/* build/"
   },
   "author": "Your Name",
   "license": "ISC",
