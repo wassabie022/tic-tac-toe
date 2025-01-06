@@ -8,7 +8,20 @@ let gameBoard = Array(3).fill(null).map(() => Array(3).fill(''));
 
 // Telegram Web App
 const tg = window.Telegram?.WebApp || null;
-const chatId = tg?.initDataUnsafe?.user?.id || 'Not available';
+let chatId = "Not available";
+
+// Проверяем, работает ли приложение внутри Telegram
+if (tg) {
+    tg.ready();
+    const initData = tg.initDataUnsafe;
+
+    // Получаем Chat ID пользователя
+    if (initData?.user?.id) {
+        chatId = initData.user.id;
+    } else {
+        console.error("Chat ID not found");
+    }
+}
 
 // Создание игрового поля
 function createBoard() {
